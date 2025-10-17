@@ -8,7 +8,7 @@ import numpy as np
 
 # ========== LOAD COLLECTED DATA ==========
 print("Loading your collected Spotify data...")
-df = pd.read_csv("spotify_song_analysis.csv")
+df = pd.read_csv("spotify_artist_song_list.csv")
 
 print(f"✅ Loaded {len(df)} tracks")
 

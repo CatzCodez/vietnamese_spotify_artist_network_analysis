@@ -103,5 +103,5 @@ else:
     pass
 
 # ========== 4. SAVE RESULTS ==========
-df.to_csv("spotify_song_analysis.csv", index=False)
+df.to_csv("spotify_artist_song_list.csv", index=False)
 print(f"\n💾 Data saved to spotify_song_analysis.csv")
