@@ -29,7 +29,6 @@ PLAYLISTS = [
 def get_playlist_tracks(playlist_id):
     tracks = []
     try:
-        # Use the EXACT same method that worked for you before
         results = sp.playlist_items(playlist_id, additional_types=["track"], market="from_token")
     except spotipy.SpotifyException as e:
         print(f"❌ Could not fetch playlist {playlist_id}: {e}")

@@ -8,7 +8,7 @@ import numpy as np
 
 # ========== LOAD COLLECTED DATA ==========
 print("Loading your collected Spotify data...")
-df = pd.read_csv("spotify_song_analysis.csv")  # Your CSV file
+df = pd.read_csv("spotify_song_analysis.csv")
 
 print(f"✅ Loaded {len(df)} tracks")
 
@@ -16,17 +16,12 @@ print(f"✅ Loaded {len(df)} tracks")
 print("\nBuilding artist collaboration network...")
 G = nx.Graph()
 
-# Process each song to find collaborations
 for _, row in df.iterrows():
-    # Get the list of artists for this song
     if pd.notna(row['artists_list']):
-        # Convert string representation of list to actual list
         artists = eval(row['artists_list']) if isinstance(row['artists_list'], str) else row['artists_list']
     else:
-        # Fallback: split the artist string
         artists = [a.strip() for a in row['artist'].split(",")]
     
-    # Only create edges for actual collaborations (2+ artists on a song)
     if len(artists) >= 2:
         for a1, a2 in combinations(artists, 2):
             if G.has_edge(a1, a2):
@@ -40,7 +35,6 @@ print(f"- Network has {len(G.nodes())} artists and {len(G.edges())} collaboratio
 # ========== CALCULATE IMPORTANCE METRICS ==========
 print("\nCalculating artist importance metrics...")
 
-# Count how many songs each artist appears on
 artist_mentions = Counter()
 for _, row in df.iterrows():
     if pd.notna(row['artists_list']):
@@ -73,8 +67,8 @@ for i, (artist, score) in enumerate(top_betweenness, 1):
 # ========== VISUALIZATION 1: NETWORK ==========
 print("\nCreating network visualization with ALL nodes labeled...")
 
-pos = nx.spring_layout(G, seed=42, k=8, iterations=1200)  # Increase k from 3 to 5
-fig1 = plt.figure(figsize=(16, 12))  # Increase from (20, 16)
+pos = nx.spring_layout(G, seed=42, k=8, iterations=1200)
+fig1 = plt.figure(figsize=(16, 12))
 node_sizes = [max(G.nodes[n]["song_count"] * 400, 800) for n in G.nodes()]
 node_colors = [G.nodes[n]["betweenness"] for n in G.nodes()]
 
