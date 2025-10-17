@@ -64,6 +64,15 @@ for i, (artist, score) in enumerate(top_betweenness, 1):
     collaborators = len(list(G.neighbors(artist)))
     print(f"{i:2d}. {artist:25} | Centrality: {score:.4f} | Songs: {song_count:2d} | Collaborators: {collaborators:2d}")
 
+print("\n  BY DEGREE CENTRALITY (Most Collaborative Artists):")
+print("-" * 50)
+top_degree = sorted(degree_centrality.items(), key=lambda x: x[1], reverse=True)[:10]
+for i, (artist, score) in enumerate(top_degree, 1):
+    song_count = artist_mentions.get(artist, 0)
+    collaborators = len(list(G.neighbors(artist)))
+    print(f"{i:2d}. {artist:25} | Centrality: {score:.4f} | Songs: {song_count:2d} | Collaborators: {collaborators:2d}")
+
+
 # ========== VISUALIZATION 1: NETWORK ==========
 print("\nCreating network visualization with ALL nodes labeled...")
 
